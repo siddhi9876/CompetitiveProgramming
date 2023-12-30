@@ -30,7 +30,7 @@ ll query(ll node, ll st, ll end, ll query_low, ll query_high) {
     //iterate for left and right
     ll mid = (st + end) / 2;
 
-    return query(2*node +1, st, mid, query_low, query_high) + query( 2*node + 2, mid + 1, end, query_high, query_low);
+    return query(2*node +1, st, mid, query_low, query_high) + query( 2*node + 2, mid + 1, end, query_low, query_high);
 }
 
 void update(ll node, ll st, ll end, ll idx, ll val) {
@@ -55,5 +55,25 @@ void update(ll node, ll st, ll end, ll idx, ll val) {
 }
 
 int main() {
-    
+    int n = 6;
+    a = { 0, 1, 3, 5, -2, 3 };
+ 
+    // Create a segment tree of size 4*n
+    //Why 4*n
+    //https://www.quora.com/Why-does-4-*-N-space-have-to-be-allocated-for-a-segment-tree-where-N-is-the-size-of-the-original-array#:~:text=The%20reason%204%20*%20N%20space,in%20an%20array%2Dbased%20representation.
+    tree.resize(4 * n);
+ 
+    // Build a segment tree
+    build(0, 0, n - 1);
+    cout << "Sum of values in range 0-4 are: "
+         << query(0, 0, n - 1, 0, 4) << "\n";
+ 
+    // Update the value at idx = 1 by
+    // 100 thus becoming 101
+    update(0, 0, n - 1, 1, 100);
+    cout << "Value at index 1 increased by 100\n";
+    cout << "sum of value in range 1-3 are: "
+         << query(0, 0, n - 1, 1, 3) << "\n";
+ 
+    return 0;
 }
